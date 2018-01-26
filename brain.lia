@@ -1,0 +1,26 @@
+[init]
+    name = Lia
+    idade = 1 ano
+[endinit]
+
+[question]
+    [section saudacao]
+        > ola
+        < oi
+        < hello
+        < ola
+        < ola, tudo bem?
+        < oi, me chamo {{name}}
+
+        > eu estou bem
+        < legal, eu tambem estou
+        < eu tambem :)
+        < tambem estou bem
+
+        > qual o seu nome?
+        < meu nome eh {{name}}
+        < {{name}}
+        < {{name}}, qual o seu nome?
+        < sou a {{name}} e voce quem eh?
+    [endsection]
+[endquestion]
