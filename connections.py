@@ -8,23 +8,22 @@ class con():
         conn = sqlite3.connect('brain.db')
         cursor = conn.cursor()
 
-        cursor.execute("drop table if exists pattern;")
-        cursor.execute("drop table if exists response;")
+        # criando a table
         cursor.execute("""
-        CREATE TABLE pattern(
+        CREATE TABLE IF NOT EXISTS pattern(
             id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
             pattern text not NULL,
             section integer not NULL
         );
         """)
+        # criando a table
         cursor.execute("""
-        CREATE TABLE response(
+        CREATE TABLE IF NOT EXISTS response(
             id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
             response text not NULL,
             patternId integer not NULL
         );
         """)
-
 
         print("Brain iniciado com sucesso...")
         conn.close()
@@ -69,7 +68,41 @@ class con():
         conn.close()
         return True
 
+    def getSectionPattern(self,section):
+        """
+        Get all pattern of the section aim
+        :param section: Int
+        :return: List
+        """
+        aux = []
+        conn = sqlite3.connect('brain.db')
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM pattern WHERE section like "+str(section)+";")
+        for linha in cursor.fetchall():
+            aux.append(linha)
+        return aux
+
+    def getResponsePattern(self,pattern):
+        """
+        Get all pattern of the section aim
+        :param section: Int
+        :return: List
+        """
+        aux = []
+        conn = sqlite3.connect('brain.db')
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM response WHERE patternId like "+str(pattern)+";")
+        for linha in cursor.fetchall():
+            aux.append(linha)
+
+        conn.close()
+        return aux
+
+
+
+
+
 
 c = con()
-c.insertPattern("bom dia",1)
-c.insertResponse("ola",1)
+print(c.getSectionPattern(1))
+print(c.getResponsePattern(1))
