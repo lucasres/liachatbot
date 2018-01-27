@@ -60,6 +60,12 @@ class chatCore():
         return 100-((distance*100)/total)
 
 
+    def getResponse(self,input):
+        """
+        Get response for the input, basead in pattern
+        :param input:
+        :return:
+        """
 
 
 p = pattern()

@@ -1,12 +1,15 @@
 from prebot import prebot
+from connections import  con
 
 class pattern():
     def __init__(self):
         #variaveis de controle
         self.linesOfBrain = []
         self.vars = {}
-        self.getBrain()
         self.sections = {}
+
+        self.getBrain()
+        self.init()
 
     def getBrain(self):
         """
@@ -82,26 +85,43 @@ class pattern():
             aux.append([line,i])
         self.section(aux)
 
-
-
     def section(self,qts):
         """
         Create a structure that stores all the pattern of the section
         :return:
         """
         pre = prebot()
+        c = con()
         aux = pre.cleanQuestions(qts)
         aux = pre.prepareData(aux)
+        patternid = 0
         for line in aux:
-            print(line)
+            print("Salvando conhecimento...")
+            if(line[2] == 'p'):
+                patternid = c.insertPattern(line[0],line[1])
+            elif(line[2] == 'r'):
+                c.insertResponse(line[0],patternid)
+
+    def gotoSection(self,section):
+        """
+        Jump for section
+        :param section: Integer
+        :return:
+        """
+
+
+    def compiler(self,inp):
+        """
+        Compiler the response
+        :param inp: String
+        :return: String
+        """
+        for c in inp:
+            print(c)
+
 
 p = pattern()
 print("linhas lidas")
-print(p.getLinesOfBrain())
-p.init()
-print("variaveis")
-print(p.getVars())
-p.questions()
-print("sections")
-print(p.getSections())
+print(p.compiler("teste de {{name}}"))
+
 

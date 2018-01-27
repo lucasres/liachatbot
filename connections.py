@@ -45,14 +45,16 @@ class con():
         Insert a new pattern in knowledge
         :param pattern: String
         :param section: Integer
-        :return: Boolean
+        :return: Integer
         """
         conn = sqlite3.connect('brain.db')
         cursor = conn.cursor()
         cursor.execute("INSERT INTO pattern(pattern,section) VALUES('"+pattern+"',"+str(section)+");")
         conn.commit()
+        cursor.execute("SELECT id FROM pattern ORDER BY id DESC")
+        patternid = cursor.fetchone()[0]
         conn.close()
-        return True
+        return patternid
 
     def insertResponse(self,response,patternId):
         """
@@ -68,7 +70,7 @@ class con():
         conn.close()
         return True
 
-    def getSectionPattern(self,section):
+    def getAllPatternSection(self,section):
         """
         Get all pattern of the section aim
         :param section: Int
@@ -80,11 +82,11 @@ class con():
         cursor.execute("SELECT * FROM pattern WHERE section like "+str(section)+";")
         for linha in cursor.fetchall():
             aux.append(linha)
-
         conn.close()
         return aux
 
-    def getResponsePattern(self,pattern):
+
+    def getAllResponsePattern(self,pattern):
         """
         Get all pattern of the section aim
         :param section: Int
@@ -100,7 +102,28 @@ class con():
         conn.close()
         return aux
 
+    def getResponse(self,id):
+        """
+        Get a response of index id
+        :param id: Integer
+        :return: Tuple
+        """
+        conn = sqlite3.connect('brain.db')
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM response WHERE id like " + str(id) + ";")
+        aux = cursor.fetchone()
+        conn.close()
+        return aux
 
-c = con()
-print(c.getSectionPattern(1))
-print(c.getResponsePattern(1))
+    def getPattern(self,id):
+        """
+        Get a pattern of index id
+        :param id: Integer
+        :return: Tuple
+        """
+        conn = sqlite3.connect('brain.db')
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM pattern WHERE id like " + str(id) + ";")
+        aux = cursor.fetchone()
+        conn.close()
+        return aux
