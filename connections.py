@@ -80,6 +80,8 @@ class con():
         cursor.execute("SELECT * FROM pattern WHERE section like "+str(section)+";")
         for linha in cursor.fetchall():
             aux.append(linha)
+
+        conn.close()
         return aux
 
     def getResponsePattern(self,pattern):
@@ -97,10 +99,6 @@ class con():
 
         conn.close()
         return aux
-
-
-
-
 
 
 c = con()

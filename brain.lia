@@ -4,6 +4,11 @@
 [endinit]
 
 [question]
+    [section teste]
+        > teste
+        < teste
+    [endsection]
+
     [section saudacao]
         > ola
         < oi
@@ -23,4 +28,11 @@
         < {{name}}, qual o seu nome?
         < sou a {{name}} e voce quem eh?
     [endsection]
+
+    [section informacoes]
+        > qual o nome do seu criador?
+        < foi criada pelo NITLAB
+        < foram os pesquisadores do NITLAB
+    [endsection]
+
 [endquestion]
