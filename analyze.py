@@ -1,5 +1,6 @@
+from connections import con
 from prebot import prebot
-from connections import  con
+
 
 class analyze():
     def __init__(self):
@@ -102,24 +103,6 @@ class analyze():
                 patternid = c.insertPattern(line[0],line[1])
             elif(line[2] == 'r'):
                 c.insertResponse(line[0],patternid)
-
-    def gotoSection(self,section):
-        """
-        Jump for section
-        :param section: Integer
-        :return:
-        """
-
-
-    def callCompiler(self,inp):
-        """
-        Compiler the response
-        :param inp: String
-        :return: String
-        """
-        for c in inp:
-            print(c)
-
 
 p = analyze()
 

@@ -1,5 +1,5 @@
 from prebot import prebot
-from analyze import pattern
+
 
 class chatCore():
     def levenshtein(self,s1, s2):
@@ -68,7 +68,6 @@ class chatCore():
         """
 
 
-p = pattern()
 
 
 
