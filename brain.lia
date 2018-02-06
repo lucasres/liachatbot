@@ -9,7 +9,7 @@
         < teste
     [endsection]
 
-    [section saudacao]
+    [section main]
         > ola
         < oi
         < hello
