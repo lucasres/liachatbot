@@ -9,7 +9,7 @@ class con():
         conn = sqlite3.connect('brain.db')
         cursor = conn.cursor()
 
-        # criando a table
+        # criando a table pattern
         cursor.execute("""
         CREATE TABLE IF NOT EXISTS pattern(
             id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
@@ -17,7 +17,7 @@ class con():
             section integer not NULL
         );
         """)
-        # criando a table
+        # criando a table response
         cursor.execute("""
         CREATE TABLE IF NOT EXISTS response(
             id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,

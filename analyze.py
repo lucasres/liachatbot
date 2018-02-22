@@ -104,6 +104,13 @@ class analyze():
             elif(line[2] == 'r'):
                 c.insertResponse(line[0],patternid)
 
-p = analyze()
 
-
+    def getSectionMain(self):
+        """
+        Return the main section of the brain
+        :return: int
+        """
+        for key,val in self.sections.items():
+            if val == "main":
+                return key+1
+        return -1

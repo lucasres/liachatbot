@@ -5,7 +5,7 @@ class responseSet():
     def __init__(self,id):
         """
         Construct of the class
-        :param id:
+        :param id: Int or Tuple
         """
         self.responses = []
         self.patternId = id
@@ -32,14 +32,6 @@ class responseSet():
     def getResponses(self):
         """
         Return all responses for the patternId
-        :return:
+        :return: List
         """
         return self.responses
-
-
-
-
-
-ts = responseSet(2)
-for rs in ts.getResponses():
-    print(rs.getResponse())

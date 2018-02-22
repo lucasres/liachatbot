@@ -4,13 +4,19 @@ class pattern():
     def __init__(self,id):
         """
         Constructor of the class
-        :param id: Integer
+        :param id: Integer or Tuple
         """
-        self.id = id;
-        self.pattern = ""
-        self.section = 0
-        #povar instancia
-        self.getPatternInDb(id)
+        if(isinstance(id,int)):
+            self.id = id;
+            self.pattern = ""
+            self.section = 0
+            #povar instancia
+            self.getPatternInDb(id)
+        elif(isinstance(id,tuple)):
+            self.id = id[0]
+            self.pattern = id[1]
+            self.section = id[2]
+
 
     def getPatternInDb(self,id):
         """
@@ -44,5 +50,26 @@ class pattern():
         """
         Return id
         :return: Integer
+        """
+        return self.id
+
+    def getSection(self):
+        """
+        Return the section that the pattern is contained
+        :return: Int
+        """
+        return self.section
+
+    def __str__(self):
+        """
+        Magic method for String
+        :return: String
+        """
+        return self.pattern
+
+    def __int__(self):
+        """
+        Magic method for Integer
+        :return:
         """
         return self.id

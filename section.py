@@ -22,7 +22,7 @@ class section():
         c = con()
         for p in c.getAllPatternSection(self.id):
             #adicionando na lista um pattern novo
-            self.patterns.append(pattern(p[0]))
+            self.patterns.append(pattern(p))
 
 
     def getPatterns(self):
@@ -31,5 +31,3 @@ class section():
         :return:
         """
         return self.patterns
-
-

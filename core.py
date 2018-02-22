@@ -1,7 +1,18 @@
 from prebot import prebot
-
+from analyze import analyze
+from section import section
+from collections import OrderedDict
 
 class chatCore():
+
+    def __init__(self):
+        """
+        Construct of the class
+        """
+        #secção inicial
+        self.sectionActual = 0;
+        self.patterns = []
+
     def levenshtein(self,s1, s2):
         """
         Calculando a distância de Levenshtein
@@ -55,8 +66,6 @@ class chatCore():
             else :
                 distance += 1
 
-        print("total "+str(total) + " distancia "+str(distance))
-
         return 100-((distance*100)/total)
 
 
@@ -67,9 +76,71 @@ class chatCore():
         :return:
         """
 
+    def getPatterns(self):
+        return self.patterns
+
+    def getSectionActual(self):
+        return self.sectionActual
+
+
+    def init(self):
+        """
+        Init the chatbot
+        :return:
+        """
+        a = analyze()
+        #get MainSection
+        self.sectionActual = a.getSectionMain()
+        if self.sectionActual == -1:
+            print("Nao ha question main!")
+            return 0
+
+        #section main
+        s = section(self.sectionActual)
+        #pegando padrões da section main
+        self.patterns = s.getPatterns()
+
+    def conversationText(self):
+        """
+        Start conversation in text mode
+        :return:
+        """
+        entry = input("Voce => ")
+        while entry != "!sair":
+            #recebe um dicionario contendo os padroes e o score
+            aux = self.compareToAll(entry)
+            #seleciona o maior score
+            pattern = self.getBiggestScore(aux)
+            print(str(pattern))
+            entry = input("Voce => ")
 
 
 
+    def getBiggestScore(self,scores):
+        """
+        Get biggest score of the dict and return
+        :param scores:
+        :return: Pattern
+        """
+        od = OrderedDict(sorted(scores.items()))
+        print(od)
+        #pega somente o Pattern
+        return od.popitem()[1]
+
+    def compareToAll(self,entry):
+        """
+        Compare entry with all the patterns of section actual
+        :param entry: String
+        :return: Dict
+        """
+        #dicionario que armazena o padrao e o score de similaridade
+        aux = {}
+        for p in self.patterns:
+            aux.update({int(self.compareTo(entry,str(p))):p})
+
+        return aux
 
 c = chatCore()
 print(c.compareTo("pele eh considerado o rei do futebol no pais","roberto carlos eh considerado o rei da musica no pais"))
+c.init()
+c.conversationText()
