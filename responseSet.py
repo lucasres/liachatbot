@@ -1,5 +1,6 @@
 from connections import con
 from response import response
+from random import choice
 
 class responseSet():
     def __init__(self,id):
@@ -35,3 +36,10 @@ class responseSet():
         :return: List
         """
         return self.responses
+
+    def getResponse(self):
+        """
+        Get only response
+        :return: Response
+        """
+        return str(choice(self.responses))

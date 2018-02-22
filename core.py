@@ -1,6 +1,7 @@
 from prebot import prebot
 from analyze import analyze
 from section import section
+from responseSet import responseSet
 from collections import OrderedDict
 
 class chatCore():
@@ -69,13 +70,6 @@ class chatCore():
         return 100-((distance*100)/total)
 
 
-    def getResponse(self,input):
-        """
-        Get response for the input, basead in pattern
-        :param input:
-        :return:
-        """
-
     def getPatterns(self):
         return self.patterns
 
@@ -111,7 +105,10 @@ class chatCore():
             aux = self.compareToAll(entry)
             #seleciona o maior score
             pattern = self.getBiggestScore(aux)
-            print(str(pattern))
+            #pegando a resposta
+            res = responseSet(int(pattern))
+            print("Lia => "+res.getResponse())
+
             entry = input("Voce => ")
 
 

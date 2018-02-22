@@ -39,3 +39,9 @@ class response():
         """
         return self.patternId
 
+    def __str__(self):
+        """
+        Magic method for str
+        :return:
+        """
+        return self.response
