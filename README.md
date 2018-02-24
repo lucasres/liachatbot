@@ -7,6 +7,7 @@
   Use > for create a pattern, bellow the pattern use < for answer
   
   Example:
+  
   ```
     [section main]
       > ola
@@ -19,6 +20,7 @@
   
   ## Use in your code
     for you to use in your code just include the class chatCore and call the methods below:
+    
   ```
   from core import chatCore
   
@@ -32,7 +34,7 @@
     
   ## Authors
 
-* **Lucas Resende de Sousa Amaral** - *Initial work* - [PurpleBooth](https://github.com/mandala21)
+* **Lucas Resende de Sousa Amaral** - *Initial work* - [Lucas Resende](https://github.com/mandala21)
 
 ## License
 
