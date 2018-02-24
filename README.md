@@ -2,24 +2,38 @@
 
   Code of chatbot of lia, created for NITLAB, in development. The chat consists of a brain.lia file where knowledge is stored, it will be "compiled" and stored in SQLITE3 database.
 
-## Class of project
+## Getting Start
+  First edit the brain.lia file with the patterns that chatbot contains. Remembering that you should contain the main section.
+  Use > for create a pattern, bellow the pattern use < for answer
+  
+  Example:
+  ```
+    [section main]
+      > ola
+      < ola
+      < iae
+      < oin :)
+      < falou comigo?
+    [endsection]
+  ```
+  
+  ## Use in your code
+    for you to use in your code just include the class chatCore and call the methods below:
+  ```
+  from core import chatCore
+  
+  bot = chatCore()
+  bot.init()
+  bot.conversationText()
+  ```
+  
+  ## useful command
+    after the chatbot is initialized to leave the conversation use !sair
+    
+  ## Authors
 
-  chatCore - consists of making the similarity clause between the input and the pattern
-  prebot - input preprocessing
-  pattern - analyzes the brain's codex
-  connections - connection to the database
-  
-  
-## Database
-  
-  The database consists of 2 tables, one to store the patterns and another to store the answers. Below is the columns of the tables:
-  
-  #### Pattern
-* Id 
-* Pattern 
-* Section
+* **Lucas Resende de Sousa Amaral** - *Initial work* - [PurpleBooth](https://github.com/mandala21)
 
-  #### Response
-* Id 
-* Response 
-* patternId
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
