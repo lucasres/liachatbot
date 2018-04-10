@@ -3,6 +3,9 @@ from analyze import analyze
 from section import section
 from responseSet import responseSet
 from collections import OrderedDict
+from connections import con
+
+import os, time
 
 class chatCore():
 
@@ -12,11 +15,12 @@ class chatCore():
         """
         #secção inicial
         self.sectionActual = 0;
+        self.sections = []
         self.patterns = []
 
     def levenshtein(self,s1, s2):
         """
-        Calculando a distância de Levenshtein
+        Calculating distance from Levenshtein
         :param s1: String
         :param s2: String
         :return: Int
@@ -47,7 +51,7 @@ class chatCore():
         :param s2: List
         :return: Float
         """
-        #criando a lista de tokens
+        #creating list of tokens
         pre = prebot()
         s1Token = pre.createToken(s1)
         s2Token = pre.createToken(s2)
@@ -56,7 +60,7 @@ class chatCore():
         if(len(s2Token)>len(s1Token)):
             return self.compareTo(s2,s1)
 
-        #iniciando variaveis de controle
+        #initialing variables of control
         total = len(s1Token) + len(s2Token)
         distance = len(s1Token)-len(s2Token)
 
@@ -82,6 +86,7 @@ class chatCore():
         Init the chatbot
         :return:
         """
+        #time.ctime(os.path.getmtime('brain.db'))
         a = analyze()
         #get MainSection
         self.sectionActual = a.getSectionMain()
@@ -91,8 +96,10 @@ class chatCore():
 
         #section main
         s = section(self.sectionActual)
-        #pegando padrões da section main
+        #get patterns of the section main
         self.patterns = s.getPatterns()
+        #get all sections
+        self.sections = a.getSections()
 
     def conversationText(self):
         """
@@ -101,14 +108,17 @@ class chatCore():
         """
         entry = input("Voce => ")
         while entry != "!sair":
-            #recebe um dicionario contendo os padroes e o score
+            #receives a dictionary containing the patterns and score
             aux = self.compareToAll(entry)
-            #seleciona o maior score
+            #select the biggest score
             pattern = self.getBiggestScore(aux)
-            #pegando a resposta
+            #geting the response
             res = responseSet(int(pattern))
-            print("Lia => "+res.getResponse())
-
+            response = res.getResponse()
+            #response of the Lia
+            print("Lia => " + response.getResponse())
+            #getting action
+            self.takeDecision(response.action)
             entry = input("Voce => ")
 
 
@@ -120,8 +130,8 @@ class chatCore():
         :return: Pattern
         """
         od = OrderedDict(sorted(scores.items()))
-        print(od)
-        #pega somente o Pattern
+        #print(od)
+        #get only pattern
         return od.popitem()[1]
 
     def compareToAll(self,entry):
@@ -130,14 +140,42 @@ class chatCore():
         :param entry: String
         :return: Dict
         """
-        #dicionario que armazena o padrao e o score de similaridade
+        #dictionary that stores the pattern and similarity score
         aux = {}
         for p in self.patterns:
             aux.update({int(self.compareTo(entry,str(p))):p})
 
         return aux
 
-c = chatCore()
-print(c.compareTo("pele eh considerado o rei do futebol no pais","roberto carlos eh considerado o rei da musica no pais"))
-c.init()
-c.conversationText()
+    def changeSection(self,name):
+        """
+        Change flow of the conversation
+        :param name: String
+        :return:
+        """
+        c = con()
+        aux = c.getSectionByName(name)
+        print(aux)
+
+
+
+    def setPatterns(self,patterns):
+        """
+        Set a new list of pattern
+        :return:
+        """
+        self.patterns = patterns
+
+
+    def takeDecision(self,action):
+        """
+        Causes the core to make a decision
+        :param action: List
+        :return:
+        """
+        #if nothing
+        if(action==None):
+            return None
+        #if action is jump
+        if(action[0]=="jump"):
+            self.changeSection(action[1])

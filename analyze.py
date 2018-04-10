@@ -12,6 +12,7 @@ class analyze():
         self.getBrain()
         self.init()
         self.questions()
+        self.storageSections()
 
     def getBrain(self):
         """
@@ -114,3 +115,13 @@ class analyze():
             if val == "main":
                 return key+1
         return -1
+
+    def storageSections(self):
+        """
+        Storage all sections of the brain
+        :return:
+        """
+        c = con()
+        for key,value in self.sections.items():
+            c.insertSection(value)
+

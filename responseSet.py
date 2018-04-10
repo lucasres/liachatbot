@@ -10,7 +10,6 @@ class responseSet():
         """
         self.responses = []
         self.patternId = id
-
         self.responses = self.getAllResponsePatternId()
 
 
@@ -39,7 +38,7 @@ class responseSet():
 
     def getResponse(self):
         """
-        Get only response
+        Get one random response in the responses set
         :return: Response
         """
-        return str(choice(self.responses))
+        return choice(self.responses)

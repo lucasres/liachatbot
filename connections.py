@@ -9,7 +9,7 @@ class con():
         conn = sqlite3.connect('brain.db')
         cursor = conn.cursor()
 
-        # criando a table pattern
+        # create the table pattern
         cursor.execute("""
         CREATE TABLE IF NOT EXISTS pattern(
             id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
@@ -17,7 +17,7 @@ class con():
             section integer not NULL
         );
         """)
-        # criando a table response
+        # create the table response
         cursor.execute("""
         CREATE TABLE IF NOT EXISTS response(
             id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
@@ -25,8 +25,22 @@ class con():
             patternId integer not NULL
         );
         """)
-
-        print("Brain iniciado com sucesso...")
+        #create table section
+        cursor.execute("""
+        CREATE TABLE IF NOT EXISTS section(
+            id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+            name text not NULL
+        );
+        """)
+        # create table config
+        cursor.execute("""
+                CREATE TABLE IF NOT EXISTS config(
+                    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+                    key varchar(20) not NULL,
+                    value varchar(120) not NULL
+                );
+                """)
+        #close
         conn.close()
 
     def query(self,sql):
@@ -128,3 +142,64 @@ class con():
         aux = cursor.fetchone()
         conn.close()
         return aux
+
+
+    def insertSection(self,name):
+        """
+        Insert section in database
+        :return: Bool
+        """
+        conn = sqlite3.connect('brain.db')
+        cursor = conn.cursor()
+        cursor.execute("INSERT INTO section(name) values('" + name + "');")
+        conn.commit()
+        conn.close()
+        return True
+
+    def getAllSection(self):
+        """
+        Return all sections of database
+        :return: List
+        """
+        aux = []
+        conn = sqlite3.connect('brain.db')
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM section;")
+        for linha in cursor.fetchall():
+            aux.append(linha)
+
+        conn.close()
+        return aux
+
+    def getSectionByName(self,name):
+        """
+        Get the id of section by value of name
+        :param name: String
+        :return: Tuple
+        """
+        conn = sqlite3.connect('brain.db')
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM section WHERE name like '" + str(name) + "';")
+        aux = cursor.fetchone()
+        conn.close()
+        return aux
+
+    def insertValueInKey(self,key,value):
+        """
+        Insert value in key of table config
+        :param key: String
+        :param value: String
+        :return:
+        """
+        conn = sqlite3.connect('brain.db')
+        cursor = conn.cursor()
+        cursor.execute("INSERT INTO config(key,value) values('" + key + "','"+value+"');")
+        conn.commit()
+        conn.close()
+        return True
+
+    def getConfigKeyValue(self):
+        """
+        Get value of the key
+        :return: String
+        """

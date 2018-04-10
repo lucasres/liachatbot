@@ -1,4 +1,5 @@
 from connections import con
+from interpretResponse import interpretResponse
 
 class response():
     def __init__(self,id):
@@ -8,11 +9,13 @@ class response():
             self.response = ""
             #povoar instancia
             self.getResponseIdPattern()
+            self.action = self.interpretResponse()
         elif(isinstance(id,tuple)):
             #(id,response,patternId)
             self.id = id[0]
             self.response = id[1]
             self.patternId = id[2]
+            self.action = self.interpretResponse()
 
     def getResponseIdPattern(self):
         """
@@ -39,9 +42,17 @@ class response():
         """
         return self.patternId
 
-    def __str__(self):
+    def getAction(self):
         """
-        Magic method for str
-        :return:
+        Return the action of the response
+        :return: List
         """
-        return self.response
+        return self.action
+
+    def interpretResponse(self):
+        """
+        Interpret the action of the response
+        :return: List
+        """
+        ir = interpretResponse(self.getResponse())
+        return ir.getAction()

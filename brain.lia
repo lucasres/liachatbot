@@ -11,11 +11,11 @@
 
     [section main]
         > ola
-        < oi
-        < hello
-        < ola
-        < ola, tudo bem?
-        < oi, me chamo {{name}}
+        < oi {{jump=teste}}
+        < hello {{jump=teste}}
+        < ola {{jump=teste}}
+        < ola, tudo bem? {{jump=teste}}
+        < oi, me chamo {{jump=teste}}
 
         > eu estou bem
         < legal, eu tambem estou
