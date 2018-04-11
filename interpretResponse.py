@@ -6,6 +6,7 @@ class interpretResponse():
         """
         Construct of the class
         """
+        self.unActionPart = ""
         self.tokens = []
         self.tokens =self.tokenTable(pIinput)
         self.action = []
@@ -38,12 +39,13 @@ class interpretResponse():
         #aux strings
         notanalize = ""
         analize = ""
+        #split in action part and unAction part
         for tk in self.tokens:
             if(tk[:2] == "{{" and tk[-2:] == "}}"):
                 analize = tk
             else:
                 notanalize += " " + tk
-
+        #return
         return [notanalize,analize]
 
     def analizeResponse(self):
@@ -52,7 +54,9 @@ class interpretResponse():
         :return: List
         """
         #get part for will analise
-        pAnalize = self.separeteTokens()[1][2:-2]
+        tmp = self.separeteTokens()
+        pAnalize = tmp[1][2:-2]
+        self.unActionPart = tmp[0]
         #separate
         aux = pAnalize.split('=')
         #set the action
@@ -68,3 +72,10 @@ class interpretResponse():
         :return: List
         """
         return self.action
+
+    def getUnActionPart(self):
+        """
+        Return the unaction part
+        :return: String
+        """
+        return self.unActionPart.strip()

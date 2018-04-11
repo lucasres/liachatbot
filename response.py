@@ -23,9 +23,11 @@ class response():
         :return: String
         """
         c = con()
-        #pega uma tupla (id,response,idPattern)
+        #getting one tuple (id,response,idPattern)
         aux = c.getResponse(self.id)
+        #The patternId is the previous one
         self.patternId = aux[2]
+        #getting response
         self.response = aux[1]
 
     def getResponse(self):
@@ -33,7 +35,7 @@ class response():
         Return the response
         :return: Sring
         """
-        return  self.response
+        return self.humanOnlyResponse(self.response)
 
     def getPatternId(self):
         """
@@ -54,5 +56,18 @@ class response():
         Interpret the action of the response
         :return: List
         """
-        ir = interpretResponse(self.getResponse())
+        ir = interpretResponse(self.response)
         return ir.getAction()
+
+    def humanOnlyResponse(self,response):
+        """
+        Getting only response for human
+        :param response: String
+        :return: String
+        """
+        ir = interpretResponse(response)
+        return ir.getUnActionPart()
+
+
+re = response((2,"oi {{jump=teste}}",1))
+print(re.getAction())

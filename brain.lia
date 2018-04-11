@@ -6,7 +6,7 @@
 [question]
     [section teste]
         > teste
-        < teste
+        < teste {{jump=main}}
     [endsection]
 
     [section main]
@@ -15,7 +15,7 @@
         < hello {{jump=teste}}
         < ola {{jump=teste}}
         < ola, tudo bem? {{jump=teste}}
-        < oi, me chamo {{jump=teste}}
+        < oi, me chamo {{name}} {{jump=teste}}
 
         > eu estou bem
         < legal, eu tambem estou

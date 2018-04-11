@@ -118,7 +118,7 @@ class chatCore():
             #response of the Lia
             print("Lia => " + response.getResponse())
             #getting action
-            self.takeDecision(response.action)
+            self.takeDecision(response.getAction())
             entry = input("Voce => ")
 
 
@@ -154,8 +154,12 @@ class chatCore():
         :return:
         """
         c = con()
+        #return one tuple (id,name)
         aux = c.getSectionByName(name)
-        print(aux)
+        #set the section with the id getting in previus step
+        s = section(aux[0])
+        #change all patterns
+        self.patterns = s.getPatterns()
 
 
 
