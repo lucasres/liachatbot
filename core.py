@@ -4,6 +4,7 @@ from section import section
 from responseSet import responseSet
 from collections import OrderedDict
 from connections import con
+from customMethod import customMethod
 
 import os, time
 
@@ -17,6 +18,7 @@ class chatCore():
         self.sectionActual = 0;
         self.sections = []
         self.patterns = []
+        self.__customMethod = customMethod()
 
     def levenshtein(self,s1, s2):
         """
@@ -120,6 +122,7 @@ class chatCore():
             #getting action
             self.takeDecision(response.getAction())
             entry = input("Voce => ")
+            self.__customMethod.call("helloWord")
 
 
 

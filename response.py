@@ -67,7 +67,3 @@ class response():
         """
         ir = interpretResponse(response)
         return ir.getUnActionPart()
-
-
-re = response((2,"oi {{jump=teste}}",1))
-print(re.getAction())
