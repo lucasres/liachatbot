@@ -1,6 +1,10 @@
 # liachatbot
 
   Code of chatbot of lia, created for NITLAB, in development. The chat consists of a brain.lia file where knowledge is stored, it will be "compiled" and stored in SQLITE3 database.
+  
+## Requirements
+
+* **SQLite**
 
 ## Getting Start
   First edit the brain.lia file with the patterns that chatbot contains. Remembering that you should contain the main section.
